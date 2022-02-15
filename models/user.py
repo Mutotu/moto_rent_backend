@@ -15,8 +15,8 @@ class UserModel(db.Model):
     # activated = db.Column(db.Boolean, default=False)
     role = db.Column( db.String, nullable=False)
     
-    # motorcycles = db.relationship("MotorcycleModel", backref="users", lazy='dynamic')
-    # comments  = db.relationship("CommentModel", backref="users", lazy=True)
+    motorcycles = db.relationship("MotorcycleModel", backref="users", lazy='dynamic')
+    comments  = db.relationship("CommentModel", backref="users", lazy=True)
     # rents =  db.relationship("Rents", backref="users", lazy=True)
     
 
@@ -39,7 +39,7 @@ class UserModel(db.Model):
              'email':self.email,
              'role':self.role
             },
-            #  "bikes": [bike.json() for bike in self.motorcycles.all()]
+             "bikes": [bike.json() for bike in self.motorcycles.all()]
         }
         
     @classmethod
