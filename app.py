@@ -1,9 +1,7 @@
 from flask import Flask, session
 from flask import request, jsonify, json
 from flask_cors import CORS
-# from flask_bcrypt import Bcrypt
-# from flask_s3 import FlaskS3
-# from werkzeug.utils import secure_filename 
+from flask_jwt_extended import JWTManager
 from flask_restful import Api
 from db import db
 
@@ -17,10 +15,12 @@ from resources.rent import Rent,RentedMotos
 app = Flask(__name__)
 
 CORS(app)
-# bcrypt = Bcrypt(app)
+
 import os
 from dotenv import load_dotenv
-load_dotenv(".env")
+load_dotenv(".env", verbose=True)
+app.config.from_object("default_config")
+app.config.from_envvar("APPLICATION_SETTINGS")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
