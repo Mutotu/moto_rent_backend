@@ -50,6 +50,14 @@ class RentModel(db.Model):
     @classmethod
     def find_by_id(cls, id):
         return cls.query.filter_by(id=id).first()
+    
+    @classmethod
+    def find_by_user_id(cls, user_id):
+        return cls.query.filter_by(user_id=user_id).all()
+    
+    
+    
+    
         
     def charge_total(self, moto_id):
         moto_qs = MotorcycleModel.query.find_by_id(id=moto_id)

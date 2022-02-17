@@ -9,7 +9,7 @@ from db import db
 from resources.user import UserRegister, UserLogin, User
 from resources.motorcycle import Motorcycle, MotoList, MotoModify
 from resources.comment import Comment
-from resources.rent import Rent,RentedMotos
+from resources.rent import Rent
 # from resources.image import ImageUpload
 # from image_helper import IMAGE_SET
 
@@ -42,8 +42,9 @@ api.add_resource(MotoList, '/motos')
 api.add_resource(Comment, '/comment/<int:moto_id>')
 api.add_resource(UserLogin, '/login')
 api.add_resource(User, '/user/<int:user_id>')
-api.add_resource(RentedMotos, '/rent/<int:rent_id>')
-api.add_resource(Rent, '/rent/<int:moto_id>')
+# api.add_resource(RentedMotos, '/rent/<int:rent_id>')
+# api.add_resource(Rent, '/rent/<int:moto_id>')
+api.add_resource(Rent, '/rent')
 
 
 if __name__ == '__main__':
