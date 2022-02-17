@@ -46,7 +46,7 @@ class Motorcycle(Resource):
         user_id = request.headers.get('user_id')
         data['user_id'] = user_id
         motorcycle = MotorcycleModel(**data)
-      
+
         try:
             motorcycle.save_to_db()
         except: 

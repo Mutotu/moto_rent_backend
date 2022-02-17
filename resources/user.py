@@ -78,15 +78,25 @@ class User(Resource):
         return user.delete_from_db()
 
 
-# when logging it asks all the fields to be filled! so not working properly
 
-    
+
+#for login
+_user_parser = reqparse.RequestParser()
+_user_parser.add_argument(
+    "username", type=str, required=True, help="This field cannot be blank."
+)
+_user_parser.add_argument(
+    "password", type=str, required=True, help="This field cannot be blank."
+)
+
 class UserLogin(Resource):
     
     def post(self):
-        data =UserRegister.parser.parse_args()
-        user = UserModel.find_by_username(data['username'])
         
+        data =_user_parser.parse_args()
+        user = UserModel.find_by_username(data['username'])
+        # print(data,'data')
+        print( user)
         
         # if user and safe_str_cmp(user.password, data['password']) and bcrypt.check_password_hash(user.password, request.json["password"]):
         #     access_token = create_access_token(identity=user.id, fresh=True)
@@ -97,7 +107,9 @@ class UserLogin(Resource):
         #         }, 200
         # return {'message': 'Invalid Credentials!'}, 401
         if user and  bcrypt.check_password_hash(user.password, request.json["password"]):
-            return {'message':'logged in'}
+            ###
+            ## change user_id when ready to user tokens because the iuser id is exposed
+            return {"data":{'message':'logged in', "user_id": user.id}}
             
             
         return {'message': 'Invalid Credentials!'}, 401

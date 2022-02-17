@@ -10,6 +10,9 @@ from resources.user import UserRegister, UserLogin, User
 from resources.motorcycle import Motorcycle, MotoList, MotoModify
 from resources.comment import Comment
 from resources.rent import Rent,RentedMotos
+# from resources.image import ImageUpload
+# from image_helper import IMAGE_SET
+
 
 
 app = Flask(__name__)
