@@ -25,6 +25,24 @@ class Rent(Resource):
 
 
 
+ 
+    
+    def get(self):
+        user_id = request.headers.get('user_id')
+        rented_motos = RentModel.find_by_user_id(user_id)
+        
+        return {'rented_motos': [moto.json() for moto in rented_motos]}
+        
+        
+class RentingMotos(Resource):
+#         #to test to see if the rent table saves the data
+#     def get(self, rent_id):
+#         data = Rent.parser.parse_args()
+#         rental = RentModel.find_by_id(id=rent_id)
+        
+#         return rental.json()
+        
+        
     def post(self, moto_id):
         
         data = Rent.parser.parse_args()
@@ -38,7 +56,7 @@ class Rent(Resource):
                 rented = RentModel(user_id, moto_id, data["start_date"], data["end_date"], )
 
                 try:
-                   
+
                     rented.save_to_db()
                 except Exception as e:
                     print(e)
@@ -47,20 +65,3 @@ class Rent(Resource):
                 return rented.json()
     
         return {'message':'Moto doesn\'t exist'}
-    
-    def get(self):
-        user_id = request.headers.get('user_id')
-        rented_motos = RentModel.find_by_user_id(user_id)
-        
-        return {'rented_motos': [moto.json() for moto in rented_motos]}
-        
-        
-# class RentedMotos(Resource):
-#         #to test to see if the rent table saves the data
-#     def get(self, rent_id):
-#         data = Rent.parser.parse_args()
-#         rental = RentModel.find_by_id(id=rent_id)
-        
-#         return rental.json()
-        
-        
