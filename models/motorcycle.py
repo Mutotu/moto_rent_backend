@@ -37,7 +37,7 @@ class MotorcycleModel(db.Model):
         return {
             "motorcycle" : {
             "id":self.id,
-            # "user_id": user_id,
+            "user_id": self.user_id,
             'make':self.make,
             'model':self.model,
             'year':self.year,

@@ -71,20 +71,29 @@ class MotoModify(Resource):
         return {"message": "Item deleted"}
  
  
- #its only saving with a new id so posting only
+ #put method isnt working
+    @classmethod
     def put(self, id):
-        data = Motorcycle.parser.parse_args()
-        motorcycle = MotorcycleModel.find_by_id(id)
+        data = request.get_json()
+        # print(data)
+        motorcycle = MotorcycleModel.find_by_id(id)      
+        
+        if not motorcycle:
+            return 'not found'
+        # if data["make"]:
+        #     motorcycle.make = data["make"]
+        for k,v  in data.iteritems():
+            setattr(motorcycle, k, v)
+        # motorcycle.model = data["model"]
+        # motorcycle.year = data['year']
+        # motorcycle.price = data["price"]
+        # motorcycle.description = data["description"]
+        # motorcycle.photo = data["photo"]
+        # motorcycle = data
+        motorcycle.save_to_db()
 
-        if motorcycle:
-            user_id = request.headers.get('user_id')
-            data['user_id'] = user_id
-            # motorcycle =MotorcycleModel(**data)
-            motorcycle = MotorcycleModel(data["user_id"], data["make"],data["model"], data["year"], data["price"], data["description"] ,data["photo"])
-            motorcycle.save_to_db()
-
-            return motorcycle.json()
-        return 'not found'
+        return "moto updated"
+            
     
     
     
